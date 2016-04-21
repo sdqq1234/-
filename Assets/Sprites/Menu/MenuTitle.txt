@@ -1,0 +1,9 @@
+MenuTitle_RankSelect	0	4	256	64	0	0
+MenuTitle_PlayerSelect	0	68	256	64	0	0
+MenuTitle_WeaponSelect	0	132	256	64	0	0
+MenuTitle_Replay	0	196	256	64	0	0
+MenuTitle_PlayerData	0	260	256	64	0	0
+MenuTitle_MusicRoom	0	324	256	64	0	0
+MenuTitle_NameRegist	0	388	256	64	0	0
+MenuTitle_SaveReplay	256	4	256	64	0	0
+MenuTitle_StageSelect	256	68	256	64	0	0

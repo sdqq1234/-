@@ -1,0 +1,11 @@
+Menu_Start	0	0	196	32	0	0
+Menu_Replay	0	32	196	32	0	0
+Menu_Practice	0	64	196	32	0	0
+Menu_MusicRoom	0	96	196	32	0	0
+Menu_PlayerData	0	128	196	32	0	0
+Menu_Manual	0	160	196	32	0	0
+Menu_Option	0	192	196	32	0	0
+Menu_Exit	0	224	196	32	0	0
+Menu_BGM_Vol	0	256	196	32	0	0
+Menu_SE_Vol	0	288	196	32	0	0
+Menu_Quit	0	320	196	32	0	0

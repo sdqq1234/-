@@ -1,0 +1,13 @@
+TotalBackground	0	0	640	480	0	0
+MenuBackground	0	512	640	480	0	0
+Score	700	0	74	25	0	0
+Spell	700	25	74	25	0	0
+Player	700	50	74	25	0	0
+Power	700	75	74	25	0	0
+Graze	700	100	56	24	0	0
+ItemLine	700	125	128	23	0	0
+ItemLine2	700	150	128	23	0	0
+FiveStar	700	175	20	20	0	0
+x2	700	200	32	16	0	0
+SpellExtend	700	225	160	32	0	0
+Extend	762	225	98	32	0	0

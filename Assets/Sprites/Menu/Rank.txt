@@ -1,0 +1,4 @@
+Menu_Easy	0	0	256	256	0	0
+Menu_Normal	256	0	256	256	0	0
+Menu_Hard	0	256	256	256	0	0
+Menu_Lunatic	256	256	256	256	0	0

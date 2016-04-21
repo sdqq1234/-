@@ -1,0 +1,8 @@
+MyPlane	0	0	40	37	0	0
+MyPlane_left	40	0	40	37	0	0
+MyPlane_right	80	0	40	37	0	0
+MySubPlane	0	40	10	19	0	0
+子机子弹	20	40	12	16	0	0
+自机子弹	40	40	9	30	0	0
+MyPlaneCenter	60	40	7	7	0	0
+_14	0	80	64	64	0	0

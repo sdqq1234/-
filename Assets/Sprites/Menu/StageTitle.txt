@@ -1,0 +1,3 @@
+StageTitle01	0	0	128	512	0	0
+StageTitle02	128	0	128	512	0	0
+StageTitle03	256	0	128	512	0	0

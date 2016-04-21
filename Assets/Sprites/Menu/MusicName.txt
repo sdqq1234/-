@@ -1,0 +1,15 @@
+花映冢 ～ after Higan Retour	0	0	378	30	-256	-15
+春色小路 ～ ｔhe Colorful Alley	0	32	404	30	-256	-15
+悪戯に命を賭けて ～ Trick or Die	0	64	428	30	-256	-15
+嘆きのWhiteFlower	0	96	246	30	-256	-15
+Sleeping Terror	0	128	224	30	-256	-15
+彼岸帰航 ～ Titanic of Stygian	0	160	404	30	-256	-15
+火龍狂演-Karyuu Kyouen-	0	192	322	30	-256	-15
+究極の真実　～ the Ultimate Truth	0	224	440	30	-256	-15
+Life stream -Sacrifice-	0	256	322	30	-256	-15
+未知の花 魅知の旅	0	288	250	30	-256	-15
+PHASE	0	320	104	30	-256	-15
+chloe	0	352	104	30	-256	-15
+死闘は凛然なりて	0	384	234	30	-256	-15
+花は散り、罪は幻想に	0	416	282	30	-256	-15
+春色小径 ～ Colorful Path	0	448	344	30	-256	-15

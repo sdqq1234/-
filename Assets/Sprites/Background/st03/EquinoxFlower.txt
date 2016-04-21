@@ -1,0 +1,2 @@
+EquinoxFlower00	0	0	256	128	0	0
+EquinoxFlower01	0	128	256	128	0	0

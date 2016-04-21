@@ -1,0 +1,14 @@
+GetSpellCardBonus	256	96	240	32	0	0
+ChallengeNextStage	256	128	256	32	0	0
+ItemGetBorderLine	256	256	200	32	0	0
+ItemGetBorderLine01	256	288	166	8	0	0
+PowerUp	304	162	112	32	0	0
+FullPowerUp	256	162	160	32	0	0
+Extend0	256	224	96	32	0	0
+Easy	256	304	80	16	0	0
+Normal	256	320	80	16	0	0
+Hard	256	336	80	16	0	0
+Lunatic	256	352	80	16	0	0
+Extra	256	368	80	16	0	0
+Overdrive	336	368	96	16	0	0
+BonusFailed	256	384	160	32	0	0

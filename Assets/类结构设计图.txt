@@ -1,0 +1,8 @@
+基类：物体类BaseObject  所有的子弹，敌人，发射器，道具都继承BaseObject
+基类: 场景类StatgeBase  所有的场景都继承这个类
+基类: 特效类EffectBase  所有的特效都继承这个类
+基类： 剧情类StoryBase 所有的和剧情相关的类都继承这个类
+
+BaseObject
+
+我方机体类
