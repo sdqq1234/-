@@ -201,13 +201,13 @@ public class StageBase : MonoBehaviour{
         //    }
             
         //}
-        if (MyPlane.MyPos.transform.position.y > GlobalData.RecoverLinePoint.y)
+        if (MyPlane.MyPos.y > GlobalData.RecoverLinePoint.y)
         {
-            MyPlane.GetInstance().isOverLineCover = true;
+            StageManager.CurStage.myPlane.isOverLineCover = true;
         }
         else
         {
-            MyPlane.GetInstance().isOverLineCover = false;
+            StageManager.CurStage.myPlane.isOverLineCover = false;
         }
     }
 

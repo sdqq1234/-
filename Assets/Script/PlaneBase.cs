@@ -5,6 +5,7 @@ using System.Collections.Generic;
 //飞机体基类
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(Rigidbody2D))]//添加2d刚体用来检测碰撞
+
 //[RequireComponent(typeof(AudioSource))]
 public class PlaneBase : ObjectBase {
 

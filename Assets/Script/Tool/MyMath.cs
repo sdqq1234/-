@@ -14,4 +14,5 @@ public static class MyMath
 	{
 		return ( beats * 60 ) / bpm;
 	}
+
 }

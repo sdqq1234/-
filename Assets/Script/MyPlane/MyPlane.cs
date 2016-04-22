@@ -2,37 +2,80 @@
 using System.Collections;
 using System.Collections.Generic;
 
-
-public class MyPlane : PlaneBase
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(Rigidbody2D))]//添加2d刚体用来检测碰撞
+[RequireComponent(typeof(SpriteRenderer))]//所有物体都需要2d渲染组件
+public class MyPlane : MonoBehaviour
 {
 
-    private static MyPlane instance;
-    public static MyPlane GetInstance()
+    /// <summary>
+    /// 自身机体属性
+    /// </summary>
+    private int life = 2;       //残机数
+    private int spell = 2;      //Spell数
+    private int power = 100;    //Power
+    private long score = 0;     //分数
+    private long hiScore = 0;   //高分
+    private int nextBluePoint = 300;
+    private int nextGreenPoint = 3000;
+    private int bluePoint = 0;  //蓝点
+    private int greenPoint = 0; //绿点
+    private int blueLevel = 0;  //蓝色等级
+    private int greenLevel = 0;//绿点等级
+    private int unmatchedTime = 5;  //无敌时间  秒
+    private int deltaGreen = 120;     //用于计算绿点奖B线
+    private Color deadColor = Color.white;//死亡时特效颜色
+    private bool isDead = false;//是否死亡
+    private bool isCanShoot = true;//是否能发射子弹
+    private float LifeTime = 0;//已经存活的时间
+    private float Speed_CurValue = 0;//当前移动速度值
+    private bool isShooting = false;//是否在发射子弹状态
+    private Animator PlayerAnimationStatus; //每个飞机都有机体动画
+    private AudioSource baseAudio;//每个飞机自身都带的音频播放设备，用来播放各种自己飞机受到的声音
+    private List<GameObject> hitObjectList = new List<GameObject>();//碰到的其他gameobject列表
+
+    public AudioClip deadSound;//每个飞机的死亡声音
+    /// <summary>
+    /// 死亡时间
+    /// 用于产生绝死效果
+    /// </summary>
+    public float DeadBeforeTime;
+    
+    
+    protected SpriteRenderer render //当前2d渲染变量
     {
-        if (!instance)
+        get
         {
-            instance = (MyPlane)GameObject.FindObjectOfType(typeof(MyPlane));
-            if (!instance)
-                Debug.LogError("There needs to be one active MyClass script on a GameObject in your scene.");
+            return gameObject.GetComponent<SpriteRenderer>();
         }
-        return instance;
     }
 
-    int life = 2;       //残机数
-    int spell = 2;      //Spell数
-    int power = 100;    //Power
-    long score = 0;     //分数
-    long hiScore = 0;   //高分
-    int nextBluePoint = 300;
-    int nextGreenPoint = 3000;
-    int bluePoint = 0;
-    int greenPoint = 0;
-    int blueLevel = 0;
-    int greenLevel = 0;
-    const int unmatchedTime = 5;  //无敌时间  秒
-    const int deltaGreen = 120;     //用于计算绿点奖B线
-    //bool isShooting = false;//是否在射击状态
+    public string LayerName
+    { //层级名称
+        get
+        {
+            return render.sortingLayerName;
+        }
+        set
+        {
+            render.sortingLayerName = value;
+        }
+    }
 
+    public int LayerOrder
+    {//层级里的层数
+        get
+        {
+            return render.sortingOrder;
+        }
+        set
+        {
+            render.sortingOrder = value;
+        }
+    }
+
+    
+    
     /// <summary>
     /// 装备类型
     /// </summary>
@@ -51,11 +94,7 @@ public class MyPlane : PlaneBase
         get { return gameObject.name + weaponType.ToString(); }
     }
 
-    /// <summary>
-    /// 死亡时间
-    /// 用于产生绝死效果
-    /// </summary>
-    public int DeadTime { get; set; }
+    
 
     /// <summary>
     /// 残机数
@@ -100,7 +139,7 @@ public class MyPlane : PlaneBase
     }
 
     /// <summary>
-    /// 获取或设置己子弹威力
+    /// 获取或设置子弹威力
     /// <summary>
     public int Power
     {
@@ -334,7 +373,7 @@ public class MyPlane : PlaneBase
     /// </summary>
     public bool SpellEnabled { get; set; }
 
-    public static GameObject MyPos;
+    public static Vector3 MyPos;
     private bool isSlow = false;//是否慢速
     public bool isCanMove = true;//是否能移动
     public bool isOverLineCover = false;//是否越过收点线
@@ -371,21 +410,19 @@ public class MyPlane : PlaneBase
     string extendSoundPath = CommandString.SoundPath + "se_extend";//奖励残机声音
     string bombExtendSoundPath = CommandString.SoundPath + "se_cardget";//奖B声音
     string grazeSoundPath = CommandString.SoundPath + "se_graze";//擦弹声音
-
-    //float subBulletShootSpeed = 700;
-    //float mainBulletShootSpeed = 1500;
+    private string deadEffectName = "DeadEffect";
 
     public AudioClip grazeSound;//擦弹声音
 
     void Awake()
     {
-        MyPos = gameObject;
+        MyPos = gameObject.transform.position;
     }
 
     // Use this for initialization
-    public override void Start()
+    public void Start()
     {
-        base.Start();
+        //base.Start();
         Init();
     }
 
@@ -393,18 +430,19 @@ public class MyPlane : PlaneBase
     void Init()
     {
         StageManager.CurStage.myPlane = this;
-        HpValue = 1;
-        hitEnable = false;
+        //HpValue = 1;
+        //hitEnable = false;
         SubPlanePoint = new Vector3[4];
         deadSound = Resources.Load(deadSoundPath) as AudioClip;
         grazeSound = Resources.Load(grazeSoundPath) as AudioClip;
         weaponType = WeaponType.TypeA;
         SpellEnabled = true;
         Speed_CurValue = speedNormal;
+        PlayerAnimationStatus = this.GetComponent<Animator>(); //获取机体移动动画
         //subShooterList = MySubShooterList;
         //mainShooter.SetShootBulletSpeed(mainBulletShootSpeed);
-        SetMainShooterBullet(-1);
-        SetSubShooterBullet(-1);
+        //SetMainShooterBullet(-1);
+        //SetSubShooterBullet(-1);
     }
 
     void InputControl()
@@ -430,9 +468,6 @@ public class MyPlane : PlaneBase
                             m.Shoot();
                     }
                 }
-
-
-
             }
             else
             {
@@ -533,9 +568,7 @@ public class MyPlane : PlaneBase
             Spell++;
         }
         //StageData.SoundPlay("se_extend.wav");
-        //BaseEffect be = new BaseEffect(StageData, "Extend", new PointF(0, 0), 0, Math.PI / 2) { Active = false, OriginalPosition = new PointF(BoundRect.Width / 2, 112), LifeTime = 90, TransparentValue = 0, Layer = 1 };
-        //be.TransparentVelocityDictionary.Add(1, 13);
-        //be.TransparentVelocityDictionary.Add(70, -13);
+        
     }
 
     /// <summary>
@@ -545,9 +578,6 @@ public class MyPlane : PlaneBase
     {
         //StageData.SoundPlay("se_cardget.wav");
         //Spell++;
-        //BaseEffect be = new BaseEffect(StageData, "SpellExtend", new PointF(0, 0), 0, Math.PI / 2) { Active = false, OriginalPosition = new PointF(BoundRect.Width / 2, 80), LifeTime = 90, TransparentValue = 0, Layer = 1 };
-        //be.TransparentVelocityDictionary.Add(1, 13);
-        //be.TransparentVelocityDictionary.Add(70, -13);
     }
 
     /// <summary>
@@ -652,50 +682,29 @@ public class MyPlane : PlaneBase
                 float rand_x = Random.Range(-0.5f, 0.5f);
                 item.bornSpeed = new Vector2(rand_x, 1);
                 Item_Obj.rigidbody2D.gravityScale = 0.2f;
-                //item.Dir_CurSpeed = new Vector2(rand_x, 1);
-                //item.Speed_CurValue = 80;
-                //item.Acceleration_Value = 10;
-                //item.Dir_Acceleration = new Vector2(0, -1);
-                //item.isGrazed = true;
-                //StageManager.CurStage.itemList.Add(item);
             }
         //}
     }
 
-    //被打中伤血
-    public override void bHit(float hitPower)
+    /// <summary>
+    /// 自机死亡
+    /// </summary>
+    protected void Dead()
     {
-        if (hitEnable)
-        {
-            HpValue -= hitPower;
-            if (HpValue <= 0)
-            {
-                Dead();
-                ClearAllBullet();
-            }
+        GameObject deadEffect = GameObject.Instantiate(Resources.Load(CommandString.EffectPath + deadEffectName)) as GameObject; //创建一个死亡特效
+        ParticleSystem ps = deadEffect.GetComponent<ParticleSystem>();
+        ps.startColor = deadColor;
+        deadEffect.transform.parent = UIShootRoot.tra_ShootRoot;
+        deadEffect.transform.localScale = Vector3.one;
+        deadEffect.transform.position = transform.position;
+        isDead = true;
+    }
 
-            //for (int i = hitObjectList.Count - 1; i >= 0; i--)
-            //{
-            //    BulletBase_Touhou bullet = hitObjectList[i].GetComponent<BulletBase_Touhou>();
-            //    if (bullet != null && bullet.renderer.sortingLayerName == CommandString.EnemyBulletLayer)
-            //    {
-            //        HpValue -= bullet.Power;
-            //        if (HpValue <= 0)
-            //        {
-            //            Dead();
-            //            ClearAllBullet();
-            //            break;
-            //        }
-            //        GameObject obj_Bullet = hitObjectList[i].gameObject;
-            //        GameObject.Destroy(obj_Bullet);
-            //        hitObjectList.RemoveAt(i);
-            //    }
-            //    else
-            //    {
-            //        hitObjectList.RemoveAt(i);
-            //    }
-            //}
-        }
+    //被打中伤血
+    public void bHit()
+    {
+        Dead();
+        ClearAllBullet();  
     }
 
     //死亡以后清除所有屏幕上的弹幕 并且播放清除特效
@@ -712,9 +721,9 @@ public class MyPlane : PlaneBase
     }
 
     // Update is called once per frame
-    public override void Update()
+    public void Update()
     {
-        base.Update();
+        MyPos = gameObject.transform.position;
         InputControl();
         UpdateSubPlanePos(PowerLevel);
         //GrazeBullet();

@@ -47,9 +47,9 @@ public class ItemBase : MonoBehaviour
 
     //收道具
     void RecoverItem(float recoverSpeed) {
-        if (MyPlane.MyPos.gameObject != null)
+        if (StageManager.CurStage.myPlane.gameObject != null)
         {
-            rigidbody2D.velocity = ((Vector2)MyPlane.MyPos.transform.position - (Vector2)transform.position).normalized * recoverSpeed;
+            rigidbody2D.velocity = ((Vector2)MyPlane.MyPos - (Vector2)transform.position).normalized * recoverSpeed;
             rigidbody2D.gravityScale = 0;
         }
         else
@@ -60,7 +60,8 @@ public class ItemBase : MonoBehaviour
     }
 
     void UpdateItem() {
-        if (MyPlane.GetInstance().isOverLineCover) {
+        if (StageManager.CurStage.myPlane.isOverLineCover)
+        {
             isBeLineRecovered = true;
         }
         if (!isGrazed)

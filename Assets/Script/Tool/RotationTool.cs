@@ -24,4 +24,5 @@ public class RotationTool : MonoBehaviour {
             gameObject.transform.Rotate(Vector3.forward, rotationSpeed);
         }
 	}
+
 }

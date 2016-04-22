@@ -53,7 +53,7 @@ public class BulletBase_Touhou : MonoBehaviour
             if (gc != null)
             {
                 Grazed = true;
-                MyPlane.GetInstance().InitGrazeItem();
+                StageManager.CurStage.myPlane.InitGrazeItem();
             }
         }
         else {
@@ -71,6 +71,18 @@ public class BulletBase_Touhou : MonoBehaviour
     void FixedUpdate()
     {
         
+    }
+
+    public Vector3 getDirToTarget(Vector3 target) {
+        float angle = (Mathf.PI + Mathf.Atan2((transform.position.y - target.y), (transform.position.x - target.x))) * Mathf.Rad2Deg - 90;
+        Vector3 dir = new Vector3(0, 0, angle);
+        return dir;
+    }
+
+    //获取目标与当前方向的夹角
+    public float getAngleToTarget(Vector3 target) {
+        float angle = (Mathf.PI + Mathf.Atan2((transform.position.y - target.y), (transform.position.x - target.x))) * Mathf.Rad2Deg - 90;
+        return angle;
     }
 
     /// <summary>

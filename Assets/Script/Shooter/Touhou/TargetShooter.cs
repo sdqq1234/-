@@ -125,9 +125,9 @@ public class TargetShooter : ShooterBase
         bullet.transform.position = this.transform.position;
         bullet.transform.localScale = Vector3.one;
         BulletBase_Touhou bullet_touhou = bullet.GetComponent<BulletBase_Touhou>();
-        Vector3 target = new Vector3(MyPlane.MyPos.transform.position.x,MyPlane.MyPos.transform.position.y,0); //获取转向方位
+        Vector3 target = new Vector3(MyPlane.MyPos.x,MyPlane.MyPos.y,0); //获取转向方位
         bullet_touhou.RotationToTarget(target);
-        bullet_touhou.speed = ((Vector2)MyPlane.MyPos.transform.position - (Vector2)transform.position).normalized * shootBulletSpeed;
+        bullet_touhou.speed = ((Vector2)MyPlane.MyPos - (Vector2)transform.position).normalized * shootBulletSpeed;
         
 
         //shotScript.speed = new Vector2(0, 20);

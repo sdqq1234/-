@@ -7,8 +7,8 @@ public class MultDirShooter : ShooterBase
 {
     public GameObject BulletPrefab;//子弹模板
     //Vector2[] MultBulletDir = { new Vector2(0f, 1) };//子弹射击出现的方向
-    List<Vector2> MultBulletPos = new List<Vector2>();//子弹射击出现的位置
-    List<Vector2> MultBulletDir = new List<Vector2>();
+    List<Vector3> MultBulletPos = new List<Vector3>();//子弹射击出现的位置
+    List<Vector3> MultBulletDir = new List<Vector3>();
     /// <summary>
     /// 方向数
     /// </summary>
@@ -108,7 +108,7 @@ public class MultDirShooter : ShooterBase
             //给子弹赋值属性
             BulletBase_Touhou bullet_touhou = bullet.GetComponent<BulletBase_Touhou>();
             bullet_touhou.RotationWithDirction(MultBulletDir[i]);
-            bullet_touhou.speed = (MultBulletPos[i] - (Vector2)transform.position).normalized * shootBulletSpeed;
+            bullet_touhou.speed = (MultBulletPos[i] - transform.position).normalized * shootBulletSpeed;
         } 
     }
 }

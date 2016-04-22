@@ -718,17 +718,6 @@
      <Compile Include="Assets\PlayMaker\Actions\iTween\iTweenShakeScale.cs" />
      <Compile Include="Assets\PlayMaker\Actions\iTween\iTweenStop.cs" />
      <Compile Include="Assets\PlayMaker\Include\iTweenFSMEvents.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\PanWM.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\Particle_force.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\Particle_force_No_Gravity.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\debris_force.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\debris_force_big.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\demo_scene_control.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\destroy.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\light_control.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\smoke_force.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\smoky_explosion.cs" />
-     <Compile Include="Assets\Realistic Explosions\Scripts\sound_delay.cs" />
      <Compile Include="Assets\Script\Boss\BossBase.cs" />
      <Compile Include="Assets\Script\Boss\Touhou\BossElf01.cs" />
      <Compile Include="Assets\Script\Bullet\AyaMainBullet.cs" />
