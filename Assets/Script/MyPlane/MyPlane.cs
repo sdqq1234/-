@@ -363,8 +363,8 @@ public class MyPlane : MonoBehaviour
     /// </summary>
     public Vector3[] MainShooterPos { get; set; }
 
-    public List<AyaSubShooter> MySubShooterList = new List<AyaSubShooter>(); //僚机列表
-    public List<AyaMainShooter> MainShooterList = new List<AyaMainShooter>();//主发射器列表
+    public List<AyaSubEmitter> MySubShooterList = new List<AyaSubEmitter>(); //僚机列表
+    public List<AyaMainEmitter> MainShooterList = new List<AyaMainEmitter>();//主发射器列表
 
     //private List<Shooter> SubPlaneList = new List<Shooter>();//僚机列表
 
@@ -439,10 +439,6 @@ public class MyPlane : MonoBehaviour
         SpellEnabled = true;
         Speed_CurValue = speedNormal;
         PlayerAnimationStatus = this.GetComponent<Animator>(); //获取机体移动动画
-        //subShooterList = MySubShooterList;
-        //mainShooter.SetShootBulletSpeed(mainBulletShootSpeed);
-        //SetMainShooterBullet(-1);
-        //SetSubShooterBullet(-1);
     }
 
     void InputControl()
@@ -455,14 +451,14 @@ public class MyPlane : MonoBehaviour
                 isShooting = true;
                 if (isCanShoot && isShooting && MySubShooterList != null)
                 {
-                    foreach (AyaSubShooter s in MySubShooterList)
+                    foreach (AyaSubEmitter s in MySubShooterList)
                     {
                         if (s.gameObject.activeSelf)
                             s.Shoot();
                     }
 
                     //主发射器射击 
-                    foreach (AyaMainShooter m in MainShooterList)
+                    foreach (AyaMainEmitter m in MainShooterList)
                     {
                         if (m.gameObject.activeSelf)
                             m.Shoot();
@@ -694,7 +690,7 @@ public class MyPlane : MonoBehaviour
         GameObject deadEffect = GameObject.Instantiate(Resources.Load(CommandString.EffectPath + deadEffectName)) as GameObject; //创建一个死亡特效
         ParticleSystem ps = deadEffect.GetComponent<ParticleSystem>();
         ps.startColor = deadColor;
-        deadEffect.transform.parent = UIShootRoot.tra_ShootRoot;
+        deadEffect.transform.parent = UIEmitterRoot.tra_ShootRoot;
         deadEffect.transform.localScale = Vector3.one;
         deadEffect.transform.position = transform.position;
         isDead = true;

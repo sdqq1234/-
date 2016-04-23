@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BossBase : EnemyBase {
 
-    public List<ShooterBase> BossShooterList = new List<ShooterBase>(); //boss拥有的发射器列表
+    public List<EmitterBase> BossShooterList = new List<EmitterBase>(); //boss拥有的发射器列表
     protected int ShooterIndex = 0;//当前boss使用的的发射器索引
     public enum BossState { 
         InTalk = 0,

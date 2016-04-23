@@ -95,7 +95,7 @@ public class PlaneBase : ObjectBase {
         GameObject deadEffect =GameObject.Instantiate( Resources.Load(CommandString.EffectPath + deadEffectName)) as GameObject; //创建一个死亡特效
         ParticleSystem ps = deadEffect.GetComponent<ParticleSystem>();
         ps.startColor = deadColor;
-        deadEffect.transform.parent = UIShootRoot.tra_ShootRoot;
+        deadEffect.transform.parent = UIEmitterRoot.tra_ShootRoot;
         deadEffect.transform.localScale = Vector3.one;
         deadEffect.transform.position = transform.position;
         //stage.StageBulletRhythmEvent -= PlaneShoot;
