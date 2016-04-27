@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour {
     private float nextAudioPlay = 0;//下次播放时间
 
     private static SongPlayer m_SongPlayer;//关卡数据播放器
-    private AudioSource BgmAudioPlayer;//背景音乐播放器
+    public AudioSource BgmAudioPlayer;//背景音乐播放器
     public SongPlayer StageSongPlayer { //对外关卡数据
         get {
             return m_SongPlayer;

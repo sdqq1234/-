@@ -4,7 +4,7 @@ using System.Collections;
 //[RequireComponent(typeof(BoxCollider2D))]
 //[RequireComponent(typeof(Rigidbody2D))]
 //东方系列弹幕基类
-public class BulletBase_Touhou : MonoBehaviour 
+public class BulletBase_Touhou : ObjectBase 
 {
     /// <summary>
     /// 擦弹记录
@@ -13,16 +13,17 @@ public class BulletBase_Touhou : MonoBehaviour
 
     public float Power = 1;//子弹威力
     //public ShooterBase ownerShooter;//发出子弹的发射器
-    public Vector2 speed = Vector2.zero;//子弹速度
+    public Vector2 speed = Vector2.one;//当前子弹刚体活的的速度
     protected bool isOutDestroy = true;//打出屏幕是否销毁
     public GameObject vanishEffect;//消失特效
 
     void Start() {
-        rigidbody2D.velocity = speed;
+        //rigidbody2D.velocity = speed;
     }
 
-    protected void Update()
+    public void Update()
     {
+        base.Update();
         if (isOutDestroy) {
             // Destroy when outside the screen
             if (renderer != null && renderer.isVisible == false)
@@ -31,6 +32,18 @@ public class BulletBase_Touhou : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 计算当前位置
+    /// </summary>
+    //void UpdatePos()
+    //{
+    //    Vector2 cur_Positon = gameObject.transform.position;
+    //    //Vector2 target = Dir_CurSpeed * Speed_Cur + cur_Positon;
+    //    float target_x = Speed_CurValue * Dir_CurSpeed.x + Acceleration_Value * Dir_Acceleration.x * Mathf.Pow(Time.deltaTime, 2) / 2;
+    //    float target_y = Speed_CurValue * Dir_CurSpeed.y + Acceleration_Value * Dir_Acceleration.y * Mathf.Pow(Time.deltaTime, 2) / 2;
+    //    Vector2 target = new Vector2(target_x + cur_Positon.x, target_y + cur_Positon.y);
+    //    gameObject.transform.position = Vector2.Lerp(cur_Positon, target, Time.deltaTime);
+    //}
 
     /// <summary>
     /// 播放消失特效

@@ -155,6 +155,10 @@ public class ObjectBase : MonoBehaviour
         return Mathf.PI + Mathf.Atan2((transform.position.y - TargetOriginalPosition.y), (transform.position.x - TargetOriginalPosition.x));
     }
 
+    public Vector2 getDirByTarget(Vector2 TargetPosition) {
+        Vector2 dir = new Vector2(TargetPosition.x - transform.position.x, TargetPosition.y - transform.position.y).normalized;
+        return dir;
+    }
     //初始化随机类型的数据
     //protected void InitRandomValue() {
     //    if (isRandom_Dir) { //生成的弹幕初始朝向随机
@@ -191,12 +195,12 @@ public class ObjectBase : MonoBehaviour
     /// <summary>
     /// 更新基础数值
     /// </summary>
-    //public virtual void Update()
-    //{
-    //    LifeTime += Time.deltaTime;
-    //    //UpdateSpeedAndDir();
-    //    //UpdatePos();
-    //}
+    public virtual void Update()
+    {
+        LifeTime += Time.deltaTime;
+        //UpdateSpeedAndDir();
+        UpdatePos();
+    }
 
     void OnBecameInvisible() { //判断是否在屏幕内
         //isOutScreen = true;

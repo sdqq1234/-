@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class EmitterBase : ObjectBase
 {
 
-    public GameObject projectilePrefab;
+    //public GameObject BulletPrefab;
     protected GameObject master
     { //发射器的所有人 默认为父节点的gameobject
         get {
@@ -18,8 +18,8 @@ public class EmitterBase : ObjectBase
         }
     }
     public float live = -1;//可以存活的时间
-    public float bloodValue = 100;//血量值
-    public List<GameObject> obj_OwnBulletTypeList;//拥有的子弹gameobject
+    //public float bloodValue = 100;//血量值
+    //public List<GameObject> obj_OwnBulletTypeList;//拥有的子弹gameobject
 
     //能射的子弹数
     public int CanShootBulletCount;
@@ -32,7 +32,7 @@ public class EmitterBase : ObjectBase
     public AudioClip shootSound;//射击时播放的声音
     //protected int shootDirCount = 1;//每次发射子弹的条数
     //public int BrustsCount = 1;//每次连发数
-    //protected float BrustSpeedSpace = 10;//连发的每个子弹的速度间隔
+    protected float BrustSpeedSpace = 10;//连发的每个子弹的速度间隔
     //protected Vector2[] pos_Bullets; //每条发射子弹相对于发射器的位置
     //protected Vector2[] dir_Bullets;//每条子弹的方向
     //protected Vector2 dir_BulletAcc;//每条子弹的目标加速度方向
@@ -48,36 +48,35 @@ public class EmitterBase : ObjectBase
     //    }
     //}
 
-    private string bulletLayerName;//所发射子弹的层
+    protected string bulletLayerName;//所发射子弹的层
     protected List<string> bulletNameList = new List<string>();//需要量产的子弹名称列表
-    //public float shootSpace = 2f; //每次发射射击间隔,默认每两秒发射一次
-    //private float nextShootSpace = 0;//下次射击间隔
+    public float shootSpace = 2f; //每次发射射击间隔,默认每两秒发射一次
+    protected float nextShootSpace = 0;//下次射击间隔
 
-    //public float shootDuration = 2;//每次射击持续的时间
-    //private float nextShootDuration = 0;//下次持续时间
+    public float shootDuration = 2;//每次射击持续的时间
+    protected float nextShootDuration = 0;//下次持续时间
 
     public float shootRate = 0.5f;//射击频率，每隔多少秒射一次，数字越小越快
-    private float nextShoot = 0.0F;//下次射击的时间
+    protected float nextShoot = 0.0F;//下次射击的时间
 
     protected float minShootAudioRate = 0.06f;//射击音效最快的播放间隔
-    private float nextShootAudio = 0;//下次播放时间
+    protected float nextShootAudio = 0;//下次播放时间
 
     protected bool Bullet_dirSameSpeed;//射出的子弹是否自身方向和速度方向一致
     protected Vector2 bulletTarget;
-    public float shootBulletSpeed = 250;//默认敌人子弹速度
+    public float shootBulletSpeed = 2;//默认敌人子弹速度
 
 	// Use this for initialization
-    //public override void Start()
-    //{
-    //    //base.Start();
-    //    Init();
-    //}
+    public virtual void Start()
+    {
+        Init();
+    }
 
     //初始化
     void Init() {
         transform.localScale = Vector3.one;
-        shootAudio.panLevel = 0;
-        shootAudio.volume = 0.2f;
+        //shootAudio.panLevel = 0;
+        //shootAudio.volume = 0.2f;
         //bulletName = obj_OwnBullet.name;
     }
 
@@ -124,10 +123,12 @@ public class EmitterBase : ObjectBase
 
 
 
-    //给生成的子弹赋值
-    private void InitBullet() {
-        GameObject shot = Instantiate(projectilePrefab) as GameObject;
-        shot.transform.position = this.transform.position;
+    /// <summary>
+    /// 初始化子弹
+    /// </summary>
+    protected virtual void InitBullet() {
+        //GameObject shot = Instantiate(BulletPrefab) as GameObject;
+        //shot.transform.position = this.transform.position;
 
         //DemoPlayerShotScript shotScript = shot.GetComponent<DemoPlayerShotScript>();
         //shotScript.speed = new Vector2(0, 20);
@@ -179,7 +180,7 @@ public class EmitterBase : ObjectBase
     /// 射击方法
     /// </summary>
     /// <param name="bulletSpeed">射出去的子弹速度</param>
-    public void Shoot() {
+    protected virtual void Shoot() {
         //if (master != null)
         //{
         //    if (shootSpace > 0)//如果有射击时间间隔
@@ -209,8 +210,8 @@ public class EmitterBase : ObjectBase
         //}
     }
 
-    //射出子弹
-    private void ShootBullet() {
+    //射出子弹频率
+    private void ShootBulletRate() {
         if (Time.time > nextShoot)
         {
             nextShoot = Time.time + shootRate;
@@ -234,7 +235,8 @@ public class EmitterBase : ObjectBase
     }
     
 	// Update is called once per frame
-    //public override void Update () {
-    //    base.Update();
-    //}
+    public override void Update()
+    {
+        base.Update();
+    }
 }
