@@ -7,7 +7,7 @@ public class AyaSubBulletTypeB : BulletBase_Touhou { //自机的追踪弹
 	// Use this for initialization
 	void Start () {
         Power = 2;
-        rigidbody2D.velocity = speed;
+        rigidbody2D.velocity = Speed;
 	}
 	
 	// Update is called once per frame
@@ -23,6 +23,16 @@ public class AyaSubBulletTypeB : BulletBase_Touhou { //自机的追踪弹
         }
         base.Update();
 	}
+
+    void OnTriggerEnter2D(Collider2D otherCollider)
+    {
+        PlaneBase plane = otherCollider.gameObject.GetComponent<PlaneBase>();
+        if (plane != null)
+        {
+            plane.bHit(Power);
+        }
+        Destroy(this.gameObject);
+    }
 
     public override void RotationToTarget(Vector3 target)
     {

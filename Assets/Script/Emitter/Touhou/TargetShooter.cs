@@ -4,8 +4,6 @@ using System.Collections;
 //拥有自动狙击类型子弹发射器类型的敌人
 public class TargetShooter : EmitterBase
 {
-    //Vector2[] TargetBulletDir = { new Vector2(0f, 1) };//子弹射击出现的方向
-    //Vector2[] TargetBulletPos = { Vector2.zero };//子弹射击出现的方向
     public GameObject BulletPrefab;//子弹预设
     float ShootRadius = 0;//发射圈半径
 
@@ -33,7 +31,7 @@ public class TargetShooter : EmitterBase
         
         bulletBase.renderer.sortingLayerName = bulletLayerName;
         bulletBase.RotationToTarget(MyPlane.MyPos);
-        bulletBase.rigidbody2D.velocity =getDirByTarget(MyPlane.MyPos)*shootBulletSpeed;
+        bulletBase.rigidbody2D.velocity =getDirByTarget(MyPlane.MyPos)*SpeedScale;
         bullet.transform.parent = UIEmitterRoot.tra_ShootRoot;
         bullet.transform.position = (Vector2)transform.position;
         bullet.transform.localScale = Vector3.one;
@@ -81,7 +79,7 @@ public class TargetShooter : EmitterBase
     }
 
     //射出子弹频率
-    private void ShootBulletRate()
+    protected override void ShootBulletRate()
     {
         if (Time.time > nextShoot)
         {
@@ -112,17 +110,5 @@ public class TargetShooter : EmitterBase
     {
         base.Update();
         Shoot();
-        //for (int i = 0; i < pos_Bullets.Length; i++)
-        //{
-        //    if (MyPlane.MyPos != null)
-        //    {
-        //        dir_Bullets[i] = ((Vector2)MyPlane.MyPos.transform.position - (Vector2)transform.position).normalized;
-        //    }
-        //    else
-        //    {
-        //        dir_Bullets[i] = -Vector2.up;
-        //    }
-
-        //}
     }
 }

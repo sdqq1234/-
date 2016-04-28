@@ -15,7 +15,6 @@ D:\unity3Dproject\Unity2DShootSprite\Temp\bin\Debug\UnityEngine.UI.dll
 D:\unity3Dproject\Unity2DShootSprite\Temp\bin\Debug\Photon3Unity3D.xml
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Assembly-CSharp-firstpass.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Assembly-CSharp-firstpass.pdb
-D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Photon3Unity3D.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\PlayMaker.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\UnityEditor.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\UnityEngine.dll
@@ -24,7 +23,6 @@ D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Mono.Cecil.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\nunit.framework.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Unity.DataContract.dll
 D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\ICSharpCode.NRefactory.dll
-D:\D\touhouProject\Unity2DShootSprite\Temp\bin\Debug\Photon3Unity3D.xml
 D:\D\touhouProject\Unity2DShootSprite\obj\Debug\Assembly-CSharp-firstpass-vs.csprojResolveAssemblyReference.cache
 D:\D\touhouProject\Unity2DShootSprite\obj\Debug\Assembly-CSharp-firstpass.dll
 D:\D\touhouProject\Unity2DShootSprite\obj\Debug\Assembly-CSharp-firstpass.pdb

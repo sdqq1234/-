@@ -70,7 +70,7 @@ public class AyaMainEmitter : MonoBehaviour
         shot.transform.localScale = Vector3.one;
 
         BulletBase_Touhou shotScript = shot.GetComponent<BulletBase_Touhou>();
-        shotScript.speed = shootBulletSpeed;
+        shotScript.Speed = shootBulletSpeed;
     }
    
 

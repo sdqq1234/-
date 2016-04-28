@@ -19,7 +19,7 @@ public class AyaSubEmitter : MonoBehaviour
     private float nextShoot = 0.0F;//下次射击的时间
 
     public Vector2 shootBulletSpeed = new Vector2(0, 10);//默认子弹速度为向上20像素每帧
-    public float ShootBulletSpeedScale = 10;//射出的子弹速度的缩放值 用来控制x和y方向的缩放
+    private float ShootBulletSpeedScale = 10;//射出的子弹速度的缩放值 用来控制x和y方向的缩放
 
     // Use this for initialization
     public void Start()
@@ -33,6 +33,7 @@ public class AyaSubEmitter : MonoBehaviour
         transform.localScale = Vector3.one;
         shootAudio.panLevel = 0;
         shootAudio.volume = 0.2f;
+        
     }
 
     //给生成的子弹赋值
@@ -44,7 +45,7 @@ public class AyaSubEmitter : MonoBehaviour
         shot.transform.localScale = Vector3.one;
 
         BulletBase_Touhou shotScript = shot.GetComponent<BulletBase_Touhou>();
-        shotScript.speed = shootBulletSpeed;
+        shotScript.Speed = shootBulletSpeed;
         shotScript.SpeedScale = ShootBulletSpeedScale;
     }
 

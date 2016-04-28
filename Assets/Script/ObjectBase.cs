@@ -42,7 +42,7 @@ public class ObjectBase : MonoBehaviour
         }
     }
 
-    private float curEulerAngle = 0;
+    private float curEulerAngle;
     //private float curEulerAngle
     //{
     //    get {

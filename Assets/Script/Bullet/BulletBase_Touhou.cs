@@ -12,8 +12,7 @@ public class BulletBase_Touhou : ObjectBase
     public bool Grazed { get; set; }
 
     public float Power = 1;//子弹威力
-    public Vector2 speed = Vector2.one;//当前子弹刚体活的的速度
-    //public float speedScale = 1;//当前速度x和y方向缩放值
+    public Vector2 Speed = Vector2.one;//当前子弹刚体的速度
     protected bool isOutDestroy = true;//打出屏幕是否销毁
     public GameObject vanishEffect;//消失特效
 
@@ -32,18 +31,6 @@ public class BulletBase_Touhou : ObjectBase
             }
         }
     }
-    /// <summary>
-    /// 计算当前位置
-    /// </summary>
-    //void UpdatePos()
-    //{
-    //    Vector2 cur_Positon = gameObject.transform.position;
-    //    //Vector2 target = Dir_CurSpeed * Speed_Cur + cur_Positon;
-    //    float target_x = Speed_CurValue * Dir_CurSpeed.x + Acceleration_Value * Dir_Acceleration.x * Mathf.Pow(Time.deltaTime, 2) / 2;
-    //    float target_y = Speed_CurValue * Dir_CurSpeed.y + Acceleration_Value * Dir_Acceleration.y * Mathf.Pow(Time.deltaTime, 2) / 2;
-    //    Vector2 target = new Vector2(target_x + cur_Positon.x, target_y + cur_Positon.y);
-    //    gameObject.transform.position = Vector2.Lerp(cur_Positon, target, Time.deltaTime);
-    //}
 
     /// <summary>
     /// 播放消失特效
@@ -58,27 +45,16 @@ public class BulletBase_Touhou : ObjectBase
     }
 
     void OnTriggerEnter2D(Collider2D otherCollider) {
-
-        if (renderer.sortingLayerName == "EnemyBullet")
+        //设置是否被擦弹过
+        GrazeCenter gc = otherCollider.GetComponent<GrazeCenter>();
+        if (gc != null)
         {
-            //设置是否被擦弹过
-            GrazeCenter gc = otherCollider.GetComponent<GrazeCenter>();
-            if (gc != null)
+            if (!Grazed)
             {
-                Grazed = true;
                 StageManager.CurStage.myPlane.InitGrazeItem();
             }
+            Grazed = true;
         }
-        else {
-            //否则则是自己打出的子弹
-            PlaneBase plane = otherCollider.gameObject.GetComponent<PlaneBase>();
-            if (plane != null)
-            {
-                plane.bHit(Power);
-            }
-            Destroy(this.gameObject);
-        }
-        
     }
 
     void FixedUpdate()
