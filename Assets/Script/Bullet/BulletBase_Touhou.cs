@@ -12,8 +12,8 @@ public class BulletBase_Touhou : ObjectBase
     public bool Grazed { get; set; }
 
     public float Power = 1;//子弹威力
-    //public ShooterBase ownerShooter;//发出子弹的发射器
     public Vector2 speed = Vector2.one;//当前子弹刚体活的的速度
+    //public float speedScale = 1;//当前速度x和y方向缩放值
     protected bool isOutDestroy = true;//打出屏幕是否销毁
     public GameObject vanishEffect;//消失特效
 
@@ -102,7 +102,7 @@ public class BulletBase_Touhou : ObjectBase
     /// 根据目标坐标转向目标方向
     /// </summary>
     /// <param name="target">目标位置</param>
-    public void RotationToTarget(Vector3 target) {
+    public virtual void RotationToTarget(Vector3 target) {
         float angle = (Mathf.PI + Mathf.Atan2((transform.position.y - target.y), (transform.position.x - target.x))) * Mathf.Rad2Deg - 90;
         transform.eulerAngles = new Vector3(0, 0, angle);
         //this.transform.

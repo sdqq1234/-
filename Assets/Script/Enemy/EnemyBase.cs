@@ -124,7 +124,7 @@ public class EnemyBase : PlaneBase {
     /// <param name="appearDir"></param>
     public void SetAppear(float appearTime, Vector2 appearPos,float appearSpeed,Vector2 appearDir)
     {
-            Speed_CurValue = appearSpeed;
+            SpeedScale = appearSpeed;
             rigidbody2d.velocity.Set(appearDir.x * appearSpeed,appearDir.y*appearSpeed);
             //Dir_CurSpeed = appearDir;
             activeTime = appearTime;

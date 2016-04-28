@@ -55,7 +55,7 @@ public class ObjectBase : MonoBehaviour
     protected bool hitEnable = false;
     //protected float RandomRange = 100;//随机范围
     protected float LifeTime = 0;//已经存活的时间
-    protected float Speed_CurValue = 0;//当前移动速度值
+    public float SpeedScale = 0;//当前移动速度值
     //public float MaxSpeed = 20;//最大速度
     //public bool isRotationSelf = false;//是否自身旋转
     //public float RotationSelfSpeed;//自身旋转角速度
