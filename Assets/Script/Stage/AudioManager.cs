@@ -55,14 +55,16 @@ public class AudioManager : MonoBehaviour {
         BgmAudioPlayer.panLevel = 0;
 
         PlaneDeadPlayer = gameObject.AddComponent<AudioSource>();
+        PlaneDeadPlayer.volume = 0.5f;
         PlaneDeadPlayer.panLevel = 0;
 
         EnemyBulletPlayer = gameObject.AddComponent<AudioSource>();
-        EnemyBulletPlayer.volume = 0.3f;
+        EnemyBulletPlayer.volume = 0.2f;
         EnemyBulletPlayer.panLevel = 0;
         //EnemyBulletPlayer.ignoreListenerVolume = true;
 
         ItemGetPlayer = gameObject.AddComponent<AudioSource>();
+        ItemGetPlayer.volume = 0.5f;
         ItemGetPlayer.panLevel = 0;
     }
 

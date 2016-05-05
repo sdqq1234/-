@@ -5,15 +5,15 @@ using System.Collections.Generic;
 public class EmitterBase : ObjectBase
 {
 
-    protected GameObject master
-    { //发射器的所有人 默认为父节点的gameobject
-        get {
-            return transform.parent.gameObject;
-        }
-        set {
-            master = value;
-        }
-    }
+    //protected GameObject master
+    //{ //发射器的所有人 默认为父节点的gameobject
+    //    get {
+    //        return transform.parent.gameObject;
+    //    }
+    //    set {
+    //        master = value;
+    //    }
+    //}
     public float live = -1;//可以存活的时间
 
     //能射的子弹数
@@ -43,6 +43,7 @@ public class EmitterBase : ObjectBase
 
     protected bool Bullet_dirSameSpeed;//射出的子弹是否自身方向和速度方向一致
     protected Vector2 bulletTarget;
+    public bool isShootByRhythm = false;//是否按照节奏射击
     //protected float shootBulletSpeed = 2;//默认敌人子弹速度
 
 	// Use this for initialization
@@ -69,10 +70,17 @@ public class EmitterBase : ObjectBase
     /// <summary>
     /// 射击方法
     /// </summary>
-    protected virtual void Shoot() {
+    public virtual void Shoot() {
         
     }
 
+    /// <summary>
+    /// 立刻射击
+    /// </summary>
+    public virtual void ShootImmediately()
+    { 
+
+    }
     /// <summary>
     /// 射出子弹频率
     /// </summary>
@@ -83,5 +91,9 @@ public class EmitterBase : ObjectBase
     public override void Update()
     {
         base.Update();
+        if (!isShootByRhythm)
+        {
+            Shoot();
+        }
     }
 }

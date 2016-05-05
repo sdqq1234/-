@@ -18,7 +18,7 @@ public class PlaneBase : ObjectBase {
     protected int OwnBulletCount = 10;//默认有10颗子弹
     private string deadEffectName = "DeadEffect";
     protected List<string> ItemNameList = new List<string>();//拥有的道具列表
-    protected bool isShootByRhythm = false;//是否按照节奏射击
+    
     protected Rigidbody2D rigidbody2d;//飞机物理刚体
 
     public enum PlaneState
@@ -85,16 +85,7 @@ public class PlaneBase : ObjectBase {
         }   
     }
 
-    //飞机射击方法
-    protected void PlaneShoot() {
-        if (CheckInScreen())
-        {
-            //if (isCanShoot && isShooting && mainShooter != null)
-            //{
-            //    mainShooter.Shoot();
-            //}
-        }
-    }
+    
 
 
 
@@ -103,9 +94,9 @@ public class PlaneBase : ObjectBase {
     {
         LifeTime += Time.deltaTime;
         //base.Update();
-        if (!isShootByRhythm)
-        {
-            PlaneShoot();
-        }
+        //if (!isShootByRhythm)
+        //{
+        //    PlaneShoot();
+        //}
     }
 }

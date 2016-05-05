@@ -70,11 +70,11 @@ public class MultDirShooter : EmitterBase
         effect.transform.position = bullet.transform.position;
         effect.transform.localScale = Vector3.one * 2;
     }
-    protected override void Shoot()
+    public override void Shoot()
     {
         base.Shoot();
-        if (master != null)
-        {
+        //if (master != null)
+        //{
             if (shootSpace > 0)//如果有射击时间间隔
             {
                 if (Time.time > nextShootSpace)
@@ -97,11 +97,17 @@ public class MultDirShooter : EmitterBase
             {
                 ShootBulletRate();
             }
-        }
-        else
-        {
-            Debug.LogError("shooter master = null");
-        }
+        //}
+        //else
+        //{
+        //    Debug.LogError("shooter master = null");
+        //}
+    }
+
+    public override void ShootImmediately()
+    {
+        base.ShootImmediately();
+        InitBullet();
     }
 
     //射出子弹频率
@@ -135,6 +141,8 @@ public class MultDirShooter : EmitterBase
     public override void Update()
     {
         base.Update();
-        Shoot();
+        if (!isShootByRhythm) {
+            Shoot();
+        }
     }
 }

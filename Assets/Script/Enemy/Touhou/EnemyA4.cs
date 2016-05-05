@@ -7,6 +7,7 @@ public class EnemyA4 : EnemyBase
 	// Use this for initialization
 	void Start () {
         base.Start();
+        curEmitter = this.GetComponent<EmitterBase>();
         //setDeadValue(null, Color.red);
         HpValue = 10;
         ItemNameList.Add("RedItem");

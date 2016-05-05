@@ -44,11 +44,11 @@ public class TargetShooter : EmitterBase
         effect.transform.localScale = Vector3.one * 2;
     }
 
-    protected override void Shoot()
+    public override void Shoot()
     {
         base.Shoot();
-        if (master != null)
-        {
+        //if (master != null)
+        //{
             if (shootSpace > 0)//如果有射击时间间隔
             {
                 if (Time.time > nextShootSpace)
@@ -71,11 +71,11 @@ public class TargetShooter : EmitterBase
             {
                 ShootBulletRate();
             }
-        }
-        else
-        {
-            Debug.LogError("shooter master = null");
-        }
+        //}
+        //else
+        //{
+        //    Debug.LogError("shooter master = null");
+        //}
     }
 
     //射出子弹频率

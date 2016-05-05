@@ -10,7 +10,7 @@ public class EnemyBase : PlaneBase {
     public float activeTime = -1;//敌人出现在屏幕里的时间
     public PlayMakerFSM enemyFsm;//敌人身上的状态机
     private Vector3 curTargetPos;
-    
+    protected EmitterBase curEmitter;//当前发射器
     Vector2 BornSpeedDir;
 
     void Awake() {
@@ -40,14 +40,26 @@ public class EnemyBase : PlaneBase {
     //根据节奏射击
     public void SetPlaneShootByRhythm(StageBase stage)
     {
-        isShootByRhythm = true;
-        stage.StageBulletRhythmEvent += PlaneShoot;
+        if(curEmitter != null)
+            curEmitter.isShootByRhythm = true;
+        stage.StageBulletRhythmEvent += ShootImmediately;
     }
 
+    //飞机射击方法 被设置添加事件
+    protected void ShootImmediately()
+    {
+        if (CheckInScreen())
+        {
+            if (isCanShoot && isShooting && curEmitter != null)
+            {
+                curEmitter.ShootImmediately();
+            }
+        }
+    }
     //去除场景节奏事件
     public void deletStageRhythmEvent(StageBase stage) {
-        isShootByRhythm = false;
-        stage.StageBulletRhythmEvent -= PlaneShoot;
+        curEmitter.isShootByRhythm = false;
+        stage.StageBulletRhythmEvent -= ShootImmediately;
     }
 
     private void UpdateAnimateByDir() {
