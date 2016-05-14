@@ -14,6 +14,8 @@ public class EmitterBase : ObjectBase
     //        master = value;
     //    }
     //}
+    public GameObject BulletPrefab;//子弹预设
+    public List<GameObject> BulletPrefabList = new List<GameObject>();//子弹预设列表
     public float live = -1;//可以存活的时间
 
     //能射的子弹数
@@ -64,9 +66,57 @@ public class EmitterBase : ObjectBase
     /// 初始化子弹
     /// </summary>
     protected virtual void InitBullet() {
-
+        if (CanShootBulletCount == 0)
+        { //子弹打完了
+            return;
+        }
+        if (CanShootBulletCount > 0)
+        {
+            CanShootBulletCount--;
+        }
+        if (shootSound != null)
+        {
+            AudioManager.AddBulletSound(shootSound);
+        }
     }
 
+    public void setBulletPrefabColor(Color bulletColor)
+    {
+        SpriteRenderer bulletRender = BulletPrefab.GetComponent<SpriteRenderer>();
+        bulletRender.color = bulletColor;
+
+    }
+    /// <summary>
+    /// 设置子弹颜色
+    /// </summary>
+    /// <param name="bullet"></param>
+    /// <param name="bulletColor"></param>
+    public void setBulletColor(GameObject bullet,Color bulletColor) {
+        SpriteRenderer bulletRender = bullet.GetComponent<SpriteRenderer>();
+        bulletRender.color = bulletColor;
+    }
+
+    /// <summary>
+    /// 设置子弹列表里所有子弹颜色
+    /// </summary>
+    /// <param name="bulletColor"></param>
+    public void setBulletListColor(Color bulletColor) {
+        for (int i = 0; i < BulletPrefabList.Count; i++) {
+            GameObject bullet = BulletPrefabList[i];
+            setBulletColor(bullet, bulletColor);
+        }
+    }
+
+    /// <summary>
+    /// 设置子弹列表里单个子弹颜色
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="bulletColor"></param>
+    public void setBulletListColor(int index,Color bulletColor)
+    {
+        GameObject bullet = BulletPrefabList[index];
+        setBulletColor(bullet, bulletColor);
+    }
     /// <summary>
     /// 射击方法
     /// </summary>

@@ -4,7 +4,7 @@ using System.Collections;
 //拥有自动狙击类型子弹发射器类型的敌人
 public class TargetShooter : EmitterBase
 {
-    public GameObject BulletPrefab;//子弹预设
+    //public GameObject BulletPrefab;//子弹预设
     float ShootRadius = 0;//发射圈半径
 
     //// Use this for initialization
@@ -84,6 +84,7 @@ public class TargetShooter : EmitterBase
         if (Time.time > nextShoot)
         {
             nextShoot = Time.time + shootRate;
+            //InitBullet();
             if (CanShootBulletCount == 0)
             { //子弹打完了
                 return;
@@ -97,10 +98,6 @@ public class TargetShooter : EmitterBase
                 InitBullet();
                 CanShootBulletCount--;
             }
-            if (shootSound != null)
-            {
-                AudioManager.AddBulletSound(shootSound);
-            }
 
         }
         //AudioPlay();
@@ -109,6 +106,9 @@ public class TargetShooter : EmitterBase
     public override void Update()
     {
         base.Update();
-        Shoot();
+        if (!isShootByRhythm)
+        {
+            Shoot();
+        }
     }
 }

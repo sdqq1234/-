@@ -7,6 +7,166 @@ using System.Collections.Generic;
 public class MultBulletDirShooter : EmitterBase
 {
 
+    
+    float ShootRadius = 0.5f;//发射圈半径
+    int dirCount = 15;//最少15个方向
+    int oneGroupBulletCount = 5;//每一组包含5个方向的弹幕
+
+    //// Use this for initialization
+    public void Start()
+    {
+        //base.Start();
+        switch (GlobalData.RankLevel)
+        {
+            case GlobalData.GameRank.Easy:
+                break;
+            case GlobalData.GameRank.Normal:
+                dirCount = 21;
+                oneGroupBulletCount = 7;
+                break;
+            case GlobalData.GameRank.Hard:
+                dirCount = 27;
+                oneGroupBulletCount = 9;
+                break;
+            case GlobalData.GameRank.Lunatic:
+                dirCount = 33;
+                oneGroupBulletCount = 11;
+                break;
+        }
+        setBulletSortingLayer(CommandString.EnemyBulletLayer);
+        //hitEnable = false;
+        //Bullet_dirSameSpeed = true;
+    }
+    protected override void InitBullet()
+    {
+        base.InitBullet();
+        for (int i = 0; i < dirCount; i++)
+        {
+            float clipAngle = 2 * Mathf.PI / dirCount;
+            float offAngle = GetAngleByTarget(MyPlane.MyPos);
+            float x = Mathf.Cos(i * clipAngle + offAngle);
+            float y = Mathf.Sin(i * clipAngle + offAngle);
+
+            Vector2 dir = new Vector2(x, y).normalized;
+            Vector2 pos = dir * ShootRadius + (Vector2)transform.position;
+            int Dir_index = i % (dirCount / oneGroupBulletCount); //每隔oneGroupBulletCount个角度的方向上子弹用列表里第二个子弹
+            int bullet_index = 0;
+            if (Dir_index > 0)
+                bullet_index = 0;
+            else
+                bullet_index = 1;
+            InitOneBullet(pos, dir, bullet_index);
+        }
+
+    }
+
+    /// <summary>
+    /// 初始化一个子弹的位置的出现效果
+    /// </summary>
+    /// <param name="bullet"></param>
+    /// <param name="position"></param>
+    /// <param name="direct"></param>
+    void InitOneBulletPosAndEffect(GameObject bullet,Vector2 position,Vector2 direct) {
+        bullet.transform.position = position;
+        bullet.transform.parent = UIEmitterRoot.tra_ShootRoot;
+        bullet.transform.localScale = Vector3.one;
+
+        BulletBase_Touhou bulletBase = bullet.GetComponent<BulletBase_Touhou>();
+        bulletBase.renderer.sortingLayerName = bulletLayerName;
+        bulletBase.RotationWithDirction(direct);
+        bulletBase.rigidbody2D.velocity = direct * SpeedScale;
+
+        //生产发子弹的特效
+        GameObject effect = GameObject.Instantiate(Resources.Load(CommandString.BulletPrefabPath + "ShootBulletEffect")) as GameObject;
+        effect.transform.parent = UIEmitterRoot.tra_ShootRoot;
+        effect.transform.position = bullet.transform.position;
+        effect.transform.localScale = Vector3.one * 2;
+    }
+
+    /// <summary>
+    /// 发射一个子弹
+    /// </summary>
+    /// <param name="pos">出现位置</param>
+    /// <param name="dir">方向</param>
+    void InitOneBullet(Vector2 pos, Vector2 dir)
+    {
+        GameObject bullet = Instantiate(BulletPrefab) as GameObject;
+        InitOneBulletPosAndEffect(bullet,pos,dir);
+    }
+
+    /// <summary>
+    /// 发射一个子弹
+    /// </summary>
+    /// <param name="pos"></param>
+    /// <param name="dir"></param>
+    /// <param name="indexInList"></param>
+    void InitOneBullet(Vector2 pos, Vector2 dir,int indexInList)
+    {
+        GameObject bullet = Instantiate(BulletPrefabList[indexInList]) as GameObject;
+        InitOneBulletPosAndEffect(bullet, pos, dir);
+    }
+
+    public override void Shoot()
+    {
+        base.Shoot();
+        //if (master != null)
+        //{
+        if (shootSpace > 0)//如果有射击时间间隔
+        {
+            if (Time.time > nextShootSpace)
+            {
+                //nextShootSpace = Time.time + shootSpace;
+                //进来以后让持续射击时间开始增加
+                nextShootDuration += Time.deltaTime;
+                if (nextShootDuration < shootDuration)
+                {
+                    ShootBulletRate();
+                }
+                else
+                {
+                    nextShootDuration = 0;
+                    nextShootSpace = Time.time + shootSpace;
+                }
+            }
+        }
+        else
+        {
+            ShootBulletRate();
+        }
+        //}
+        //else
+        //{
+        //    Debug.LogError("shooter master = null");
+        //}
+    }
+
+    public override void ShootImmediately()
+    {
+        base.ShootImmediately();
+        InitBullet();
+    }
+
+    //射出子弹频率
+    protected override void ShootBulletRate()
+    {
+        if (Time.time > nextShoot)
+        {
+            nextShoot = Time.time + shootRate;
+            InitBullet();
+
+        }
+        //AudioPlay();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if (!isShootByRhythm)
+        {
+            Shoot();
+        }
+    }
+
     //// Use this for initialization
     //List<Vector2> MultBulletPos = new List<Vector2>();//子弹射击出现的位置
     //List<Vector2> MultBulletDir = new List<Vector2>();

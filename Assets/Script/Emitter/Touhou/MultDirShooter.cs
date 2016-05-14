@@ -5,7 +5,7 @@ using System.Collections.Generic;
 //多方向弹幕
 public class MultDirShooter : EmitterBase
 {
-    public GameObject BulletPrefab;//子弹预设
+    //public GameObject BulletPrefab;//子弹预设
     float ShootRadius = 0.5f;//发射圈半径
     int dirCount = 3;//最少3个方向
 
@@ -116,23 +116,8 @@ public class MultDirShooter : EmitterBase
         if (Time.time > nextShoot)
         {
             nextShoot = Time.time + shootRate;
-            if (CanShootBulletCount == 0)
-            { //子弹打完了
-                return;
-            }
-            if (CanShootBulletCount <= -1)
-            { //机体无限子弹
-                InitBullet();
-            }
-            else if (CanShootBulletCount > 0)
-            {
-                InitBullet();
-                CanShootBulletCount--;
-            }
-            if (shootSound != null)
-            {
-                AudioManager.AddBulletSound(shootSound);
-            }
+            InitBullet();
+            
 
         }
         //AudioPlay();

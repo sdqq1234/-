@@ -4,7 +4,8 @@ using System.Collections;
 public class BossElf01 : BossBase {
 
     private MultDirShooter Emitter1;//发射器1
-    private GameObject Bullet1;//子弹1
+    private MultBulletDirShooter Emitter2;//发射器2
+    //private GameObject Bullet1;//子弹1
 
 	// Use this for initialization
     void Start()
@@ -33,17 +34,36 @@ public class BossElf01 : BossBase {
         curEmitter.isShootByRhythm = true;
     }
 
-    public void ChangeEmitter(int index) {
-        ShooterIndex = index;
+    public void UpdateCurEmitter() {
+        if (ShooterIndex < BossEmitterList.Count)
+        {
+            if (BossEmitterList[ShooterIndex].CanShootBulletCount == 0)
+            {
+                ShooterIndex++;
+            }
+        }
+        ChangeBossEmitter(ShooterIndex);
     }
 
     void InitAllEmitter() {
         Emitter1 = gameObject.AddComponent<MultDirShooter>();
         Emitter1.SpeedScale = 3;
-        Emitter1.CanShootBulletCount = -1;
+        Emitter1.CanShootBulletCount = 10;
         Emitter1.shootSound = Resources.Load(CommandString.SoundPath + "se_tan00") as AudioClip;
         Emitter1.BulletPrefab = Resources.Load(CommandString.BulletPrefabPath+ "bullet4_0") as GameObject;
+        Emitter1.setBulletPrefabColor(Color.green);
         BossEmitterList.Add(Emitter1);
+
+        Emitter2 = gameObject.AddComponent<MultBulletDirShooter>();
+        Emitter2.SpeedScale = 3;
+        Emitter2.CanShootBulletCount = -1;
+        Emitter2.shootSound = Resources.Load(CommandString.SoundPath + "se_tan00") as AudioClip;
+        GameObject bulletPrefab1 = Resources.Load(CommandString.BulletPrefabPath + "bullet4_0") as GameObject;
+        GameObject bulletPrefab2 = Resources.Load(CommandString.BulletPrefabPath + "bullet1_0") as GameObject;
+        Emitter2.BulletPrefabList.Add(bulletPrefab1);
+        Emitter2.BulletPrefabList.Add(bulletPrefab2);
+        Emitter2.setBulletListColor(Color.green);
+        BossEmitterList.Add(Emitter2);
     }
 
     //初始化发射器列表
@@ -51,11 +71,8 @@ public class BossElf01 : BossBase {
         
         for (int i = 0; i < BossEmitterList.Count; i++)
         {
-            //BossEmitterList[i].CanShootBulletCount = -1;
             BossEmitterList[i].enabled = false; 
         }
-        //BossEmitterList[index].gameObject.SetActive(true);
-        //SetMainShooterBullet(5, 0, 0, 0);
         curEmitter = BossEmitterList[index];
         curEmitter.enabled = true;
     }
@@ -80,6 +97,7 @@ public class BossElf01 : BossBase {
     void Update()
     {
         base.Update();
+        UpdateCurEmitter();
         //BossEmitterList[ShooterIndex].Update();
         //if (mainShooter.CanShootBulletCount <= 0)
         //{  //这个波效果的子弹打完换下一波子弹
