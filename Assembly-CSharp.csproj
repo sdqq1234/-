@@ -752,6 +752,9 @@
      <Compile Include="Assets\Script\Item\RedItem.cs" />
      <Compile Include="Assets\Script\Menu\LoadingManager.cs" />
      <Compile Include="Assets\Script\Menu\ManualManager.cs" />
+     <Compile Include="Assets\Script\Menu\MenuGUI\GameStartMenuManager1.cs" />
+     <Compile Include="Assets\Script\Menu\MenuGUI\OnButtonEvent.cs" />
+     <Compile Include="Assets\Script\Menu\MenuGUI\StageInfoManager1.cs" />
      <Compile Include="Assets\Script\Menu\MenuManager.cs" />
      <Compile Include="Assets\Script\Menu\MusicRoomManager.cs" />
      <Compile Include="Assets\Script\Menu\OptionManager.cs" />
