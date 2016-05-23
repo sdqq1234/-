@@ -14,10 +14,10 @@ public class WeaponSelectManager : MonoBehaviour {
     private GameObject PreSelectWeapon;//上一次选择的武器
     private Transform CurHidePosition;//当前要隐藏的位置
     //public UIButton PlayerInfo;
-    private MenuManager menuMangaer;
+    //private MenuManager menuMangaer;
 	// Use this for initialization
 	void Start () {
-        menuMangaer = GameObject.Find("2DUI Root").GetComponent<MenuManager>();
+        //menuMangaer = GameObject.Find("2DUI Root").GetComponent<MenuManager>();
         Init();
 	}
 
@@ -26,13 +26,13 @@ public class WeaponSelectManager : MonoBehaviour {
     /// </summary>
     void ResetWeaponPos(Transform HidePoint)
     {
-        foreach (GameObject go in WeaponList)
-        {
-            TweenTransform tt = go.GetComponent<TweenTransform>();
-            tt.from = HidePoint;
-            tt.to = HidePoint;
-            tt.PlayForward();
-        }
+        //foreach (GameObject go in WeaponList)
+        //{
+        //    TweenTransform tt = go.GetComponent<TweenTransform>();
+        //    tt.from = HidePoint;
+        //    tt.to = HidePoint;
+        //    tt.PlayForward();
+        //}
     }
 
     private void SetSelectedWeapon(Transform hidePos) {
@@ -42,19 +42,19 @@ public class WeaponSelectManager : MonoBehaviour {
         if (PreSelectWeapon == null) {
             PreSelectWeapon = SelectedWeapon;
         }
-        TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
+        //TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
         
-        //TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
-        cur_tt.from = hidePos;
-        cur_tt.to = ShowPoint;
-        cur_tt.ResetToBeginning();
-        cur_tt.PlayForward();
+        ////TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
+        //cur_tt.from = hidePos;
+        //cur_tt.to = ShowPoint;
+        //cur_tt.ResetToBeginning();
+        //cur_tt.PlayForward();
 
-        TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
-        pre_tt.from = ShowPoint;
-        pre_tt.to = hidePos;
-        pre_tt.ResetToBeginning();
-        pre_tt.PlayForward();
+        //TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
+        //pre_tt.from = ShowPoint;
+        //pre_tt.to = hidePos;
+        //pre_tt.ResetToBeginning();
+        //pre_tt.PlayForward();
         
     }
 
@@ -77,19 +77,19 @@ public class WeaponSelectManager : MonoBehaviour {
         {
             PreSelectWeapon = SelectedWeapon;
         }
-        TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
+        //TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
 
-        //TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
-        cur_tt.from = HideLeftPoint;
-        cur_tt.to = ShowPoint;
-        cur_tt.ResetToBeginning();
-        cur_tt.PlayForward();
+        ////TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
+        //cur_tt.from = HideLeftPoint;
+        //cur_tt.to = ShowPoint;
+        //cur_tt.ResetToBeginning();
+        //cur_tt.PlayForward();
 
-        TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
-        pre_tt.from = ShowPoint;
-        pre_tt.to = HideRightPoint;
-        pre_tt.ResetToBeginning();
-        pre_tt.PlayForward();
+        //TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
+        //pre_tt.from = ShowPoint;
+        //pre_tt.to = HideRightPoint;
+        //pre_tt.ResetToBeginning();
+        //pre_tt.PlayForward();
     }
 
     /// <summary>
@@ -113,25 +113,25 @@ public class WeaponSelectManager : MonoBehaviour {
         {
             PreSelectWeapon = SelectedWeapon;
         }
-        TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
+        //TweenTransform cur_tt = SelectedWeapon.GetComponent<TweenTransform>();
 
-        //TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
-        cur_tt.from = HideRightPoint;
-        cur_tt.to = ShowPoint;
-        cur_tt.ResetToBeginning();
-        cur_tt.PlayForward();
+        ////TweenAlpha ta = SelectedWeapon.GetComponent<TweenAlpha>();
+        //cur_tt.from = HideRightPoint;
+        //cur_tt.to = ShowPoint;
+        //cur_tt.ResetToBeginning();
+        //cur_tt.PlayForward();
 
-        TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
-        pre_tt.from = ShowPoint;
-        pre_tt.to = HideLeftPoint;
-        pre_tt.ResetToBeginning();
-        pre_tt.PlayForward();
+        //TweenTransform pre_tt = PreSelectWeapon.GetComponent<TweenTransform>();
+        //pre_tt.from = ShowPoint;
+        //pre_tt.to = HideLeftPoint;
+        //pre_tt.ResetToBeginning();
+        //pre_tt.PlayForward();
     }
 
     void Init() {
         //ResetWeaponPos();
         foreach (GameObject go in WeaponList) {
-            UIEventListener.Get(go).onClick += ClickWeaponInfo;
+            //UIEventListener.Get(go).onClick += ClickWeaponInfo;
         }
     }
 
@@ -147,7 +147,7 @@ public class WeaponSelectManager : MonoBehaviour {
                 Debug.Log("选择了武器B");
                 break;
         }
-        menuMangaer.LoadingManager.loadNextScene(CommandString.GameStageSceneID);
+        //menuMangaer.LoadingManager.loadNextScene(CommandString.GameStageSceneID);
         
     }
 
@@ -155,8 +155,8 @@ public class WeaponSelectManager : MonoBehaviour {
 	void Update () {
         if (Input.GetMouseButtonDown(1))
         { //右键的话则返回主菜单
-            menuMangaer.InitNextState(MenuManager.MenuState.PlayerSelectTitle);
-            menuMangaer.ReturnToBeforeState();
+            //menuMangaer.InitNextState(MenuManager.MenuState.PlayerSelectTitle);
+            //menuMangaer.ReturnToBeforeState();
         }
 	}
 }
